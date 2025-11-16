@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string("foto");
             $table->string("nama");
             $table->text("deskripsi");
-            $table->decimal("harga");
+            $table->decimal("harga", 10, 2);
             $table->integer("stok")->default(0);
             $table->unsignedBigInteger('kategori_id');
             $table->foreign('kategori_id')->references('id')->on('categories')->onDelete('cascade');

@@ -37,6 +37,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // Logika Validasi sudah benar sesuai Modul 6
+        $request->merge([
+            'harga' => str_replace(',', '', $request->harga),
+        ]);
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'harga' => 'required|numeric',
@@ -75,6 +79,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $request->merge([
+            'harga' => str_replace(',', '', $request->harga),
+        ]);
+
         // 1. Validasi Data
         $request->validate([
             'nama' => 'required|string|max:255',

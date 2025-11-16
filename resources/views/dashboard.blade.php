@@ -13,7 +13,7 @@
                                 <h5 class="card-title text-primary">Selamat datang admin website!🎉
                                 </h5>
                                 <p class="mb-4">
-                                    selamat bekerja <span class="fw-bold">{{ Auth::user()->name ?? 'Admin' }}</span> nikmati
+                                    selamat bekerja nikmati
                                     harimu
                                     dengan lebih baik
                                 </p>
@@ -40,7 +40,7 @@
                                 <div class="card-title d-flex align-items-start justify-content-between">
                                     <div class="avatar flex-shrink-0">
                                         <img src="../assets/img/icons/unicons/chart-success.png" alt="chart 
-                                                success" class="rounded" />
+                                                    success" class="rounded" />
                                     </div>
                                     <div class="dropdown">
                                         <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"

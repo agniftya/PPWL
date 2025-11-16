@@ -57,7 +57,7 @@ style="width: 300px;">
                             <td>{{ $product->nama }}</td> 
                             <td>{{ $product->kategori ? $product->kategori->nama : '-' }}</td> 
                             <td>{{ Str::limit($product->deskripsi, 50) }}</td> 
-                            <td>{{ number_format($product->harga) }}</td> 
+                            <td>{{ 'Rp ' . number_format($product->harga, 0, ',', '.') }}</td> 
                             <td>{{ $product->stok }}</td> 
                             <td> 
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm 
@@ -77,9 +77,7 @@ onclick="deleteConfirm('{{ $product->id }}', '{{ $product->name }}')">
                             </td> 
                         </tr> 
                         @endforeach 
- 
-Create.blade.php 
- 
+  
                     </tbody> 
                 </table> 
             </div> 

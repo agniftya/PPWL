@@ -1,4 +1,5 @@
 @extends('layouts.app')
+{{-- PERBAIKAN: Mengganti layouts.sneat menjadi layouts.app --}}
 
 @section('title', 'Daftar Kategori')
 
@@ -12,11 +13,10 @@
         @if(session('success'))
             <div class="alert alert-primary alert-dismissible" role="alert">
                 {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
-        <!-- Responsive Table -->
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-2">
@@ -26,10 +26,9 @@
                     </a>
                 </div>
 
-                <!-- Search Form -->
                 <form action="{{ route('category.index') }}" method="GET" class="d-flex" style="width: 300px;">
-                    <input type="text" name="search" class="w-75 pr-10 border-gray-300 rounded-md shadow-sm focus:border-blue
-            500 focus:ring focus:ring-blue-200 me-2" placeholder="Cari..." value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control me-2" placeholder="Cari..."
+                        value="{{ request('search') }}">
                     <button class="btn btn-primary btn-sm" type="submit">
                         <i class="bx bx-search"></i>
                     </button>
@@ -51,12 +50,11 @@
                                     <td>{{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }}</td>
                                     <td>{{ $category->nama }}</td>
                                     <td>
-                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm 
-                                                btn-primary">
+                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-primary">
                                             <i class="bx bx-edit"></i>
                                         </a>
-                                        <form id="delete-form-{{ $category->id }}" action="{{ 
-                                                route('category.destroy', $category->id) }}" method="POST"
+                                        <form id="delete-form-{{ $category->id }}"
+                                            action="{{ route('category.destroy', $category->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -68,10 +66,16 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            {{-- Pengecekan Data Kosong --}}
+                            @if ($categories->isEmpty())
+                                <tr>
+                                    <td colspan="3" class="text-center">Data kategori tidak ditemukan.</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
-                <!-- Pagination -->
+                {{-- Pagination --}}
                 <div class="mt-3 d-flex justify-content-center">
                     {{ $categories->links('pagination::bootstrap-5') }}
                 </div>
@@ -83,10 +87,10 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function deleteConfirm(id) {
+        function deleteConfirm(id, name) {
             Swal.fire({
-                title: 'Yakin mau hapus produk ini?',
-                text: "Data yang sudah dihapus tidak bisa dikembalikan!",
+                title: 'Yakin mau hapus kategori ini?',
+                text: "Anda akan menghapus kategori: " + name + "!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

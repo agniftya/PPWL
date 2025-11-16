@@ -32,9 +32,16 @@ scrollbar.css') }}" />
 </head>
 
 <body>
+    @php
+        $isAdmin = Auth::check() && Auth::user()->role === 'admin';
+    @endphp
+
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            @include('components.layout.sidebar')
+            @if ($isAdmin)
+                @include('components.layout.sidebar')
+            @endif
+
             <div class="layout-page">
                 @include('components.layout.navbar')
                 <div class="content-wrapper">
@@ -56,6 +63,7 @@ scrollbar.css') }}" />
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

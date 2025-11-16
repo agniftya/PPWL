@@ -75,66 +75,57 @@ block d-xl-none">
     </div>
 
     <div class="menu-inner-shadow"></div>
+
     <ul class="menu-inner py-1">
-        <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <a href="{{ route('dashboard') }}" class="menu-link">
+        <!-- Dashboard -->
+        <li class="menu-item active">
+            <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        <!-- mastes -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Master</span>
         </li>
-        <li
-            class="menu-item {{ request()->routeIs('products.*') || request()->routeIs('category.*') ? 'active open' : '' }}">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <li class="menu-item">
+            <a href="#" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                 <div data-i18n="Authentications">Katalog Produk</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('products.index') ? 'active' : '' }}">
-                    <a href="{{ route('products.index') }}" class="menu-link">
-                        <div data-i18n="Basic">Daftar Produk</div>
+                <li class="menu-item">
+                    <a href="{{ route('products.create')}}" class="menu-link">
+                        <div data-i18n="Basic">Tambah Data</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
-                    <a href="{{ route('category.index') }}" class="menu-link">
-                        <div data-i18n="Basic">Daftar Kategori</div>
+                <li class="menu-header small text-uppercase"><span class="menu-header
+text">Transaksi</span></li>
+                <!-- Cards -->
+                <li class="menu-item">
+                    <a href="cards-basic.html" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-collection"></i>
+                        <div data-i18n="Basic">Daftar Pesanan</div>
                     </a>
+                </li>
+                <!-- User interface -->
+                <li class="menu-item">
+                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-box"></i>
+                        <div data-i18n="User interface">Pembayaran</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="ui-accordion.html" class="menu-link">
+                                <div data-i18n="Accordion">Daftar Pembayaran</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="ui-alerts.html" class="menu-link">
+                                <div data-i18n="Alerts">Verifikasi Pembayaran</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-
-        {{-- Transaksi --}}
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Transaksi</span>
-        </li>
-
-        <li class="menu-item {{ request()->routeIs('orders.index') ? 'active' : '' }}">
-            <a href="#" class="menu-link"> {{-- Ganti '#' dengan route pesanan jika sudah ada --}}
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Daftar Pesanan</div>
-            </a>
-        </li>
-
-        <li class="menu-item">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface">Pembayaran</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="#" class="menu-link"> {{-- Ganti '#' dengan route daftar pembayaran --}}
-                        <div data-i18n="Accordion">Daftar Pembayaran</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link"> {{-- Ganti '#' dengan route verifikasi pembayaran --}}
-                        <div data-i18n="Alerts">Verifikasi Pembayaran</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-    </ul>
 </aside>

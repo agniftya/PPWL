@@ -6,45 +6,50 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /** 
-     * Menampilkan daftar produk 
+    /** * Menampilkan daftar produk (Index)
      */
     public function index(): View
     {
         $products = Product::with('kategori')->when(request('search'), function ($query) {
-            $query->where('nama', 'like', '%' . request('search') . '%');
+            $query->where('nama', 'like', '%' . request('search') . '%')
+                ->orWhereHas('kategori', function ($q) {
+                    $q->where('nama', 'like', '%' . request('search') . '%');
+                });
         })->paginate(10);
 
         return view('products.index', compact('products'));
     }
 
-    /** 
-     * Menampilkan form tambah produk 
+    /** * Menampilkan form tambah produk (Create)
      */
     public function create(): View
     {
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
-    /** 
-     * Menyimpan produk baru 
+
+    /** * Menyimpan produk baru (Store)
      */
     public function store(Request $request)
     {
+        // Logika Validasi sudah benar sesuai Modul 6
         $request->validate([
             'nama' => 'required|string|max:255',
             'harga' => 'required|numeric',
-            'stok' => 'required|numeric',
+            'stok' => 'required|integer|min:0',
             'deskripsi' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'kategori_id' => 'required|exists:categories,id',
         ]);
 
+        // 1. Simpan File Foto ke Storage
         $fotoPath = $request->file('foto')->store('foto', 'public');
 
+        // 2. Simpan Data ke Database
         Product::create([
             'nama' => $request->nama,
             'harga' => $request->harga,
@@ -58,8 +63,7 @@ class ProductController extends Controller
             ->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    /** 
-     * Menampilkan form edit produk 
+    /** * Menampilkan form edit produk (Edit)
      */
     public function edit(Product $product): View
     {
@@ -67,11 +71,11 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    /** 
-     * Mengupdate produk 
+    /** * Mengupdate produk (Update)
      */
     public function update(Request $request, Product $product)
     {
+        // 1. Validasi Data
         $request->validate([
             'nama' => 'required|string|max:255',
             'harga' => 'required|numeric',
@@ -82,25 +86,38 @@ class ProductController extends Controller
         ]);
 
         $data = $request->except('foto');
+
+        // 2. Logika Update Foto (Menggunakan Storage Facade)
         if ($request->hasFile('foto')) {
-            if ($product->foto && file_exists(public_path('storage/' . $product->foto))) {
-                unlink(public_path('storage/' . $product->foto));
+
+            // Hapus foto lama jika ada
+            if ($product->foto && Storage::disk('public')->exists($product->foto)) {
+                Storage::disk('public')->delete($product->foto);
             }
-            $data['foto'] = $request->file('foto')->store('produk', 'public');
+
+            // Simpan foto baru, menggunakan folder 'foto'
+            $data['foto'] = $request->file('foto')->store('foto', 'public');
         }
 
+        // 3. Update Data Produk
         $product->update($data);
 
         return redirect()->route('products.index')
             ->with('success', 'Produk berhasil diperbarui.');
     }
 
-    /** 
-     * Menghapus produk 
+    /** * Menghapus produk (Destroy)
      */
     public function destroy(Product $product)
     {
+        // 1. Logika Hapus File Foto (Menggunakan Storage Facade)
+        if ($product->foto && Storage::disk('public')->exists($product->foto)) {
+            Storage::disk('public')->delete($product->foto);
+        }
+
+        // 2. Hapus Data Produk
         $product->delete();
+
         return redirect()->route('products.index')
             ->with('success', 'Produk berhasil dihapus.');
     }

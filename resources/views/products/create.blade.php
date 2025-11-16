@@ -15,7 +15,7 @@
         <div class="mb-4"> 
             <a href="{{ url()->previous() }}" class="btn btn-secondary"> 
                 <i class="bx bx-arrow-back"></i> Kembali 
-                   </a> 
+                    </a> 
         </div> 
     <!-- Basic with Icons --> 
     <div class="col-xxl"> 
@@ -124,7 +124,7 @@ phone">Harga</label>
                                 ></span> 
                                 <input 
                                     type="text" 
-                                      name="harga" 
+ name="harga" 
                                     id="basic-icon-default-phone" 
                                     class="form-control phone-mask @error('harga') is-invalid @enderror" 
                                     placeholder="Rp 0" 

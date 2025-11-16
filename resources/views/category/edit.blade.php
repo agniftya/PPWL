@@ -1,4 +1,4 @@
-@extends('layouts.sneat')
+@extends('layouts.app')
 
 @section('title', 'Edit Kategori')
 
@@ -26,15 +26,15 @@
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-icon-default
-    fullname">Nama Kategori</label>
+        fullname">Nama Kategori</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">
                                             <i class="bx bx-package"></i>
                                         </span>
                                         <input type="text" name="nama" class="w-75 pr-10 border-gray-300 rounded-md shadow-sm 
-    focus:border-blue-500 focus:ring focus:ring-blue-200 @error('nama') border-red-500 
-    @enderror" id="basic-icon-default-fullname" placeholder="Silahkan isi nama kategori"
+        focus:border-blue-500 focus:ring focus:ring-blue-200 @error('nama') border-red-500 
+        @enderror" id="basic-icon-default-fullname" placeholder="Silahkan isi nama kategori"
                                             aria-label="Silahkan isi nama kategori"
                                             aria-describedby="basic-icon-default-fullname2"
                                             value="{{ old('nama', $category->nama) }}" />

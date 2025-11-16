@@ -99,25 +99,27 @@ block d-xl-none">
                         <div data-i18n="Basic">Tambah Data</div>
                     </a>
                 </li>
-                <li class="menu-header small text-uppercase"><span class="menu-header
-text">Transaksi</span></li>
+                <li class="menu-header small text-uppercase">
+                    <span class="menu-header-text">Transaksi</span>
+                </li>
+
                 <!-- Cards -->
                 <li class="menu-item">
                     <a href="cards-basic.html" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-collection"></i>
-                        <div data-i18n="Basic">Daftar Pesanan</div>
+                        <div data-i18n="Daftar Pesanan">Daftar Pesanan</div>
                     </a>
                 </li>
                 <!-- User interface -->
                 <li class="menu-item">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-box"></i>
-                        <div data-i18n="User interface">Pembayaran</div>
+                        <div data-i18n="Pembayaran">Pembayaran</div>
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="ui-accordion.html" class="menu-link">
-                                <div data-i18n="Accordion">Daftar Pembayaran</div>
+                                <div data-i18n="Daftar Pembayaran">Daftar Pembayaran</div>
                             </a>
                         </li>
                         <li class="menu-item">

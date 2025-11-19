@@ -38,14 +38,14 @@ class ProductController extends Controller
     {
         // Logika Validasi sudah benar sesuai Modul 6
         $request->merge([
-            'harga' => str_replace(',', '', $request->harga),
+            'harga' => str_replace(['.', ','], '', $request->harga) // Membersihkan input
         ]);
 
         $request->validate([
             'nama' => 'required|string|max:255',
             'harga' => 'required|numeric',
             'stok' => 'required|integer|min:0',
-            'deskripsi' => 'required|string',
+            'deskripsi' => 'nullable|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'kategori_id' => 'required|exists:categories,id',
         ]);
@@ -80,7 +80,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->merge([
-            'harga' => str_replace(',', '', $request->harga),
+            'harga' => str_replace(['.', ','], '', $request->harga),
         ]);
 
         // 1. Validasi Data

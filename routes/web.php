@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 // 2. Dashboard (hanya admin yg bisa akses)
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('home');
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 // 3. Route CRUD Produk & Kategori (hanya admin)

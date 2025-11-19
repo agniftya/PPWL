@@ -10,7 +10,7 @@
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Selamat datang admin website!🎉
+                                <h5 class="card-title text-primary">Selamat datang di halaman Dashboard UTS PPWL!🎉
                                 </h5>
                                 <p class="mb-4">
                                     selamat bekerja nikmati
@@ -40,7 +40,7 @@
                                 <div class="card-title d-flex align-items-start justify-content-between">
                                     <div class="avatar flex-shrink-0">
                                         <img src="../assets/img/icons/unicons/chart-success.png" alt="chart 
-                                                    success" class="rounded" />
+                                                        success" class="rounded" />
                                     </div>
                                     <div class="dropdown">
                                         <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"

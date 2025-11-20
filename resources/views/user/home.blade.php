@@ -26,7 +26,7 @@
                                         
                                         @if (Auth::user()->role === 'admin')
                                             {{-- Link ke Dashboard Admin --}}
-                                            Silakan <a href="{{ route('dashboard') }}" class="fw-bold">klik di sini untuk menuju Dashboard Admin</a>.
+                                            Silakan <a href="{{ route('dashboard') }}" class="fw-bold">klik di sini untuk menuju Dashboard User</a>.
                                         @endif
                                     </p>
                                     
@@ -37,7 +37,7 @@
                                     {{-- TAMPILAN JIKA BELUM LOGIN (GUEST) --}}
                                     <h5 class="card-title text-primary">Selamat Datang di Toko Kami!</h5>
                                     <p class="mb-4">
-                                        Silakan **Login** untuk melakukan pemesanan atau **Registrasi** untuk membuat akun baru.
+                                        Silakan **Login** untuk melakukan pemesanan atau Registrasi untuk membuat akun baru.
                                     </p>
                                     <a href="{{ route('login') }}" class="btn btn-sm btn-primary me-2">Login</a>
                                     <a href="{{ route('register') }}" class="btn btn-sm btn-outline-secondary">Registrasi</a>

@@ -58,11 +58,11 @@
         <div class="login-register">
             @guest
                 <a href="{{ route('login') }}" class="login-link">Login</a>
-                <a href="{{ route('register') }}" class="login-link">Registrasi</a>
+                <a href="{{ route('register') }}" class="btn btn-sm btn-outline-secondary">Registrasi</a>
             @endguest
 
             @auth
-                <a href="{{ route('dashboard') }}">Dashboard Admin</a>
+                <!-- <a href="{{ route('dashboard') }}">Dashboard Admin</a> -->
                 <form method="POST" action="{{ route('logout') }}" style="display:block;">
                     @csrf
                     <button type="submit"

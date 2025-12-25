@@ -5,18 +5,29 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Produk</a></li>
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
+                </li>
+
                 @auth
-                    <li class="nav-item"><a class="nav-link" href="#">Keranjang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Pesanan</a></li>
+                    @if(Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="btn btn-warning btn-sm ms-lg-3" href="{{ route('dashboard') }}">
+                                <i class="bx bx-grid-alt"></i> Panel Admin
+                            </a>
+                        </li>
+                    @endif
                 @endauth
             </ul>
-            <div class="ms-lg-3">
+
+            <div class="ms-lg-3 d-flex gap-2">
                 @guest
-                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
                 @else
+                    <span class="navbar-text me-3">Halo, {{ Auth::user()->name }}</span>
+
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-danger">Logout</button>

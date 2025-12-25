@@ -67,4 +67,20 @@ keranjang!');
         }
         return redirect()->route('cart.index')->with('success', 'Jumlah produk diperbarui!');
     }
+
+    public function checkout()
+    {
+        $cart = session()->get('cart', []);
+        if (empty($cart)) {
+            return redirect()->route('cart.index')->with('error', 'Keranjang kosong!');
+        }
+        return view('user.checkout', compact('cart'));
+    }
+
+    public function processCheckout(Request $request)
+    {
+        // Logika simpan pesanan (Modul 11)
+        session()->forget('cart'); // Kosongkan keranjang setelah order
+        return redirect()->route('home')->with('success', 'Pesanan Anda berhasil diproses!');
+    }
 }

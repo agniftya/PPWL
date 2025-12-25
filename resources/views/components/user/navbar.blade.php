@@ -9,8 +9,8 @@
                 <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Produk</a></li>
                 @auth
-                    <li class="nav-item"><a class="nav-link" href="{{ route('cart.index') }}">Keranjang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('orders.history') }}">Pesanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Keranjang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pesanan</a></li>
                 @endauth
             </ul>
             <div class="ms-lg-3">

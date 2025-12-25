@@ -3,31 +3,31 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Product; // Pastikan Model Product di-import
 use Illuminate\Support\Facades\Route;
 
-// 1. Home page (public/user)
+
 Route::get('/', function () {
-    return view('welcome');
+    // Mengambil data produk terbaru untuk ditampilkan di landing page
+    $products = Product::latest()->get();
+
+    // Mengarahkan ke file resources/views/user/home.blade.php
+    return view('user.home', compact('products'));
 })->name('home');
 
-// 2. Dashboard (hanya admin yg bisa akses)
-Route::get('/dashboard', function () {
-    return view('home');
-})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
-// 3. Route CRUD Produk & Kategori (hanya admin)
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+Route::middleware('auth')->group(function () {
+    // Route resource untuk mengelola produk dan kategori di sisi admin
     Route::resource('products', ProductController::class);
     Route::resource('category', CategoryController::class);
-});
 
-// 4. Route otentikasi & profil
-Route::middleware('auth')->group(function () {
-
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
-
+    // Route Profile bawaan Laravel Breeze
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

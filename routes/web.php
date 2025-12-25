@@ -26,7 +26,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('dashboard');
 
     Route::resource('products', ProductController::class);
-    Route::resource('categories', CategoryController::class);
+    Route::resource('category', CategoryController::class);
 });
 
 // 4. Route Khusus User Login (Keranjang, Checkout, Profile) - Modul 11

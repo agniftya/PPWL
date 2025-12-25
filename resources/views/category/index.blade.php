@@ -1,5 +1,4 @@
-@extends('layouts.app')
-{{-- PERBAIKAN: Mengganti layouts.sneat menjadi layouts.app --}}
+@extends('layouts.admin')
 
 @section('title', 'Daftar Kategori')
 

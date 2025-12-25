@@ -30,8 +30,8 @@
             </a>
         </li>
 
-        <li class="menu-item {{ request()->is('categories*') ? 'active' : '' }}">
-            <a href="{{ route('categories.index') }}" class="menu-link">
+        <li class="menu-item {{ request()->is('category*') ? 'active' : '' }}">
+            <a href="{{ route('category.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-category"></i>
                 <div data-i18n="Basic">Kategori</div>
             </a>

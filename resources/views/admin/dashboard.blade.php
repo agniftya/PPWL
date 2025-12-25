@@ -1,4 +1,4 @@
-@extends('layouts.admin') {{-- Menghubungkan ke Master Layout Sneat --}}
+@extends('layouts.admin')
 
 @section('title', 'Admin Dashboard')
 

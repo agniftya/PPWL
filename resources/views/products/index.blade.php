@@ -1,107 +1,130 @@
-@extends('layouts.app') 
- 
+@extends('layouts.admin') 
+
 @section('title', 'Daftar Produk') 
- 
+
 @section('content') 
 <div class="container-xxl flex-grow-1 container-p-y"> 
     {{-- Breadcrumb dinamis --}} 
-    <x-breadcrumb :items="[ 
-        'Produk' => route('products.index'), 
-        'Daftar Produk' => '' 
-    ]" /> 
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item active">Daftar Produk</li>
+      </ol>
+    </nav>
  
-    <!-- Responsive Table --> 
     <div class="card"> 
         <div class="card-header d-flex justify-content-between align-items-center"> 
-            <h5 class="mb-0">Daftar Produk</h5> 
+            <div>
+                <h5 class="mb-0">Daftar Produk Sepatu</h5> 
+                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm mt-2">
+                    <i class="bx bx-plus"></i> Tambah Produk Baru
+                </a>
+            </div>
  
-            <!-- Search Form --> 
-            <form action="{{ route('products.index') }}" method="GET" class="d-flex" 
-style="width: 300px;"> 
+            <form action="{{ route('products.index') }}" method="GET" class="d-flex" style="width: 300px;"> 
                 <input type="text" name="search"  
-                    class="form-control form-control me-2"  
-                    placeholder="Cari..."  
+                    class="form-control me-2"  
+                    placeholder="Cari sepatu..."  
                     value="{{ request('search') }}"> 
-                       <button class="btn btn-primary btn-sm" type="submit"> 
+                <button class="btn btn-outline-primary btn-sm" type="submit"> 
                     <i class="bx bx-search"></i> 
                 </button> 
             </form> 
         </div> 
+
         <div class="card-body"> 
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="table-responsive text-nowrap"> 
-                <table class="table table-bordered"> 
-                    <thead> 
-                    <tr> 
-                        <th>No</th> 
-                        <th>Foto</th> 
-                        <th>Nama</th> 
-                        <th>Kategori</th> 
-                        <th>Deskripsi</th> 
-                        <th>Harga</th> 
-                        <th>Stok</th> 
-                        <th>Actions</th> 
-                    </tr> 
+                <table class="table table-hover table-bordered"> 
+                    <thead class="table-light"> 
+                        <tr> 
+                            <th>No</th> 
+                            <th>Foto</th> 
+                            <th>Nama Sepatu</th> 
+                            <th>Kategori</th> 
+                            <th>Harga</th> 
+                            <th>Stok</th> 
+                            <th>Actions</th> 
+                        </tr> 
                     </thead> 
                     <tbody> 
-                        @foreach ($products as $product) 
+                        @forelse ($products as $product) 
                         <tr> 
                             <td>{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</td> 
                             <td> 
                                 @if($product->foto) 
-                                    <img src="{{ $product->foto  
-                                        ? asset('storage/' . $product->foto)  
-                                        : asset('assets/img/default-product.png') }}"  
-                                        alt="{{ $product->nama }}" class="img-thumbnail" width="80" /> 
+                                    <img src="{{ asset('storage/' . $product->foto) }}"  
+                                         alt="{{ $product->nama }}" class="rounded" width="60" height="60" style="object-fit: cover;" /> 
+                                @else
+                                    <img src="{{ asset('assets/img/elements/1.jpg') }}" class="rounded" width="60" height="60" />
                                 @endif 
                             </td> 
-                            <td>{{ $product->nama }}</td> 
-                            <td>{{ $product->kategori ? $product->kategori->nama : '-' }}</td> 
-                            <td>{{ Str::limit($product->deskripsi, 50) }}</td> 
-                            <td>{{ 'Rp ' . number_format($product->harga, 0, ',', '.') }}</td> 
-                            <td>{{ $product->stok }}</td> 
+                            <td class="fw-bold">{{ $product->nama }}</td> 
+                            <td>
+                                <span class="badge bg-label-info">
+                                    {{ $product->category ? $product->category->nama : 'Tanpa Kategori' }}
+                                </span>
+                            </td> 
+                            <td>Rp {{ number_format($product->harga, 0, ',', '.') }}</td> 
+                            <td>
+                                @if($product->stok <= 5)
+                                    <span class="text-danger fw-bold">{{ $product->stok }} (Limit)</span>
+                                @else
+                                    {{ $product->stok }}
+                                @endif
+                            </td> 
                             <td> 
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm 
-btn-primary"> 
-                                    <i class="bx bx-edit"></i> 
-                                </a> 
- 
-                                <form id="delete-form-{{ $product->id }}" action="{{ 
-route('products.destroy', $product->id) }}" method="POST" style="display:inline;"> 
-                                    @csrf 
-                                    @method('DELETE') 
-                                    <button type="button" class="btn btn-sm btn-danger" 
-onclick="deleteConfirm('{{ $product->id }}', '{{ $product->name }}')"> 
-                                        <i class="bx bx-trash"></i> 
-                                    </button> 
-                                </form> 
+                                <div class="d-flex">
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-icon btn-primary me-2"> 
+                                        <i class="bx bx-edit"></i> 
+                                    </a> 
+     
+                                    <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST"> 
+                                        @csrf 
+                                        @method('DELETE') 
+                                        <button type="button" class="btn btn-sm btn-icon btn-danger" 
+                                            onclick="deleteConfirm('{{ $product->id }}', '{{ $product->nama }}')"> 
+                                            <i class="bx bx-trash"></i> 
+                                        </button> 
+                                    </form> 
+                                </div>
                             </td> 
                         </tr> 
-                        @endforeach 
-  
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">Data produk sepatu tidak ditemukan.</td>
+                        </tr>
+                        @endforelse 
                     </tbody> 
                 </table> 
             </div> 
-             <!-- Pagination --> 
-            <div class="mt-3 d-flex justify-content-center"> 
-                {{ $products->links('pagination::bootstrap-5') }} 
+
+            <div class="mt-4 d-flex justify-content-center"> 
+                {{ $products->appends(['search' => request('search')])->links('pagination::bootstrap-5') }} 
             </div> 
         </div> 
     </div> 
 </div> 
 @endsection 
- 
+
 @push('scripts') 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 <script> 
-function deleteConfirm(id) { 
+function deleteConfirm(id, nama) { 
     Swal.fire({ 
-        title: 'Yakin mau hapus produk ini?', 
-        text: "Data yang sudah dihapus tidak bisa dikembalikan!", 
+        title: 'Hapus Sepatu?', 
+        text: "Kamu akan menghapus " + nama + ". Data ini tidak bisa balik lagi!", 
         icon: 'warning', 
         showCancelButton: true, 
-        confirmButtonColor: '#d33', 
-        cancelButtonColor: '#3085d6', 
-        confirmButtonText: 'Ya, Hapus!', 
+        confirmButtonColor: '#ff3e1d', 
+        cancelButtonColor: '#8592a3', 
+        confirmButtonText: 'Ya, Hapus Saja!', 
         cancelButtonText: 'Batal' 
     }).then((result) => { 
         if (result.isConfirmed) { 

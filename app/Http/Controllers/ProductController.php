@@ -14,9 +14,9 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::with('kategori')->when(request('search'), function ($query) {
+        $products = Product::with('category')->when(request('search'), function ($query) {
             $query->where('nama', 'like', '%' . request('search') . '%')
-                ->orWhereHas('kategori', function ($q) {
+                ->orWhereHas('category', function ($q) {
                     $q->where('nama', 'like', '%' . request('search') . '%');
                 });
         })->paginate(10);
@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $category = Category::all();
+        $categories = \App\Models\Category::all();
         return view('products.create', compact('categories'));
     }
 
@@ -71,7 +71,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        $categories = Category::all();
+        $product = \App\Models\Product::findOrFail($product->id);
+        $categories = \App\Models\Category::all();
         return view('products.edit', compact('product', 'categories'));
     }
 

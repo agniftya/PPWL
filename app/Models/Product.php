@@ -16,11 +16,12 @@ class Product extends Model
         "deskripsi",
         "harga",
         "stok",
-        "kategori_id"
+        "kategori_id",
+        "foto"
     ];
 
     // Relasi One-to-Many terbalik ke Category
-    public function kategori()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'kategori_id');
     }

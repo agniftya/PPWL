@@ -5,7 +5,6 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        {{-- 1. Hero Section (Banner Sambutan) --}}
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card bg-primary text-white shadow-none border-0">
@@ -34,7 +33,6 @@
             </div>
         </div>
 
-        {{-- 2. Daftar Produk Dinamis (Modul 9) --}}
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Produk /</span> Terbaru</h4>
 
         <div class="row">

@@ -15,7 +15,7 @@
         <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div>Dashboard</div>
             </a>
         </li>
 
@@ -26,12 +26,17 @@
         <li class="menu-item {{ request()->is('products*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Layouts">Katalog Produk</div>
+                <div>Katalog Produk</div>
             </a>
             <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('products.index') ? 'active' : '' }}">
+                    <a href="{{ route('products.index') }}" class="menu-link">
+                        <div>Daftar Produk</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ request()->routeIs('products.create') ? 'active' : '' }}">
                     <a href="{{ route('products.create') }}" class="menu-link">
-                        <div>Tambah Data</div>
+                        <div>Tambah Produk</div>
                     </a>
                 </li>
             </ul>
@@ -40,12 +45,17 @@
         <li class="menu-item {{ request()->is('category*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-category"></i>
-                <div data-i18n="Categories">Kategori</div>
+                <div>Kategori</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
                     <a href="{{ route('category.index') }}" class="menu-link">
                         <div>Daftar Kategori</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->routeIs('category.create') ? 'active' : '' }}">
+                    <a href="{{ route('category.create') }}" class="menu-link">
+                        <div>Tambah Kategori</div>
                     </a>
                 </li>
             </ul>
@@ -55,8 +65,9 @@
             <span class="menu-header-text">TRANSAKSI</span>
         </li>
 
-        <li class="menu-item">
-            <a href="#" class="menu-link"> <i class="menu-icon tf-icons bx bx-list-ul"></i>
+        <li class="menu-item {{ request()->routeIs('orders.history') ? 'active' : '' }}">
+            <a href="{{ route('orders.history') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div>Daftar Pesanan</div>
             </a>
         </li>
@@ -64,7 +75,7 @@
         <li class="menu-item">
             <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-credit-card"></i>
-                <div data-i18n="Basic">Pembayaran</div>
+                <div>Pembayaran</div>
             </a>
         </li>
 
@@ -73,9 +84,9 @@
         </li>
 
         <li class="menu-item">
-            <a href="{{ route('home') }}" class="menu-link">
+            <a href="{{ route('home') }}" class="menu-link" target="_blank">
                 <i class="menu-icon tf-icons bx bx-world"></i>
-                <div data-i18n="Basic">Lihat Toko</div>
+                <div>Lihat Toko</div>
             </a>
         </li>
     </ul>

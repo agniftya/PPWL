@@ -4,7 +4,7 @@
 
 @section('content') 
 <div class="container-xxl flex-grow-1 container-p-y"> 
-    {{-- Breadcrumb dinamis --}} 
+
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
@@ -20,7 +20,7 @@
                     <i class="bx bx-plus"></i> Tambah Produk Baru
                 </a>
             </div>
- 
+
             <form action="{{ route('products.index') }}" method="GET" class="d-flex" style="width: 300px;"> 
                 <input type="text" name="search"  
                     class="form-control me-2"  

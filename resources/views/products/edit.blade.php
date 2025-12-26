@@ -4,7 +4,7 @@
  
 @section('content') 
 <div class="container-xxl flex-grow-1 container-p-y"> 
-    {{-- Breadcrumb dinamis --}} 
+ 
     <x-breadcrumb :items="[ 
         'Produk' => route('products.index'), 
         'Edit Produk' => '' 

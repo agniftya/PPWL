@@ -42,11 +42,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        @if($product->category)
-                                            <span class="badge bg-label-info">{{ $product->category->nama }}</span>
-                                        @else
-                                            <span class="badge bg-label-danger">Tanpa Kategori</span>
-                                        @endif
+                                        <span class="fw-bold">{{ $cat->nama }}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex">
@@ -55,12 +51,11 @@
                                                 <i class="bx bx-edit-alt"></i> Edit
                                             </a>
 
-                                            <form id="delete-form-{{ $cat->id }}"
-                                                action="{{ route('category.destroy', $cat->id) }}" method="POST">
+                                            <form action="{{ route('category.destroy', $cat->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                                    onclick="deleteConfirm('{{ $cat->id }}', '{{ $cat->nama }}')">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Yakin ingin menghapus kategori ini?')">
                                                     <i class="bx bx-trash"></i> Hapus
                                                 </button>
                                             </form>

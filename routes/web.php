@@ -7,7 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-// 1. Route Landing Page (Modul 9)
+// 1. Route Landing Page 
 Route::get('/', function () {
     $products = Product::latest()->get();
     return view('user.home', compact('products'));
@@ -19,7 +19,7 @@ Route::get('/product/{id}', function ($id) {
     return view('user.show', compact('product'));
 })->name('product.show');
 
-// 3. Route Khusus Admin (Modul 10)
+// 3. Route Khusus Admin 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -29,7 +29,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('category', CategoryController::class);
 });
 
-// 4. Route Khusus User Login (Keranjang, Checkout, Profile) - Modul 11
+// 4. Route Khusus User Login (Keranjang, Checkout, Profile) 
 Route::middleware('auth')->group(function () {
 
     // Rute Keranjang (Cart)

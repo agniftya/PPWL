@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    /** 
-     * Menampilkan isi keranjang 
-     */
     public function index()
     {
         $cart = session()->get('cart', []);
-        return view('cart.index', compact('cart'));
+        return view('user.cart', compact('cart'));
     }
 
-    /** 
-     * Menambah produk ke keranjang 
-     */
     public function add(Product $product)
     {
         $cart = session()->get('cart', []);
 
         if (isset($cart[$product->id])) {
+            $cart[$product->id]['quantity']++;
+        } else {
             $cart[$product->id] = [
                 "nama" => $product->nama,
                 "quantity" => 1,
@@ -34,13 +31,10 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return redirect()->route('cart.index')->with('success', 'Produk ditambahkan ke 
-keranjang!');
+        return redirect()->route('cart.index')->with('success', 'Produk 
+ditambahkan ke keranjang!');
     }
 
-    /** 
-     * Menghapus produk dari keranjang 
-     */
     public function remove(Product $product)
     {
         $cart = session()->get('cart', []);
@@ -49,14 +43,10 @@ keranjang!');
             unset($cart[$product->id]);
             session()->put('cart', $cart);
         }
-
-        return redirect()->route('cart.index')->with('success', 'Produk dihapus dari 
-keranjang!');
+        return redirect()->route('cart.index')->with('success', 'Produk dihapus 
+dari keranjang!');
     }
 
-    /** 
-     * Update jumlah produk di keranjang 
-     */
     public function update(Request $request, Product $product)
     {
         $cart = session()->get('cart', []);
@@ -65,22 +55,7 @@ keranjang!');
             $cart[$product->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
         }
-        return redirect()->route('cart.index')->with('success', 'Jumlah produk diperbarui!');
-    }
-
-    public function checkout()
-    {
-        $cart = session()->get('cart', []);
-        if (empty($cart)) {
-            return redirect()->route('cart.index')->with('error', 'Keranjang kosong!');
-        }
-        return view('user.checkout', compact('cart'));
-    }
-
-    public function processCheckout(Request $request)
-    {
-        // Logika simpan pesanan (Modul 11)
-        session()->forget('cart'); // Kosongkan keranjang setelah order
-        return redirect()->route('home')->with('success', 'Pesanan Anda berhasil diproses!');
+        return redirect()->route('cart.index')->with('success', 'Jumlah produk 
+diperbarui!');
     }
 }

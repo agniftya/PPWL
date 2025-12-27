@@ -32,7 +32,7 @@
                                 <td>Rp {{ number_format($order->total, 0, ',', '.') }}</td>
                                 <td>
                                     @if($order->bukti_pembayaran)
-                                        <a href="{{ asset('storage/' . $order->bukti_pembayaran) }}" target="_blank"
+                                        <a href="{{ route('admin.payments.show', $order->id) }}" target="_blank"
                                             class="btn btn-sm btn-outline-info">
                                             <i class="bx bx-show me-1"></i> Lihat Bukti
                                         </a>
@@ -43,22 +43,25 @@
                                 <td>
                                     @if($order->status_pembayaran == 'lunas')
                                         <span class="badge bg-label-success">Lunas</span>
+                                    @elseif($order->bukti_pembayaran)
+                                        <span class="badge bg-label-warning text-dark">Menunggu Konfirmasi</span>
                                     @else
-                                        <span class="badge bg-label-warning">Pending</span>
+                                        <span class="badge bg-label-danger">Belum Bayar</span>
                                     @endif
                                 </td>
+
                                 <td>
-                                    {{-- Tombol konfirmasi hanya muncul jika status masih pending dan bukti sudah ada --}}
-                                    @if($order->status_pembayaran == 'pending' && $order->bukti_pembayaran)
-                                        <form action="{{ route('admin.payments.confirm', $order->id) }}" method="POST"
-                                            onsubmit="return confirm('Konfirmasi pembayaran ini?')">
+                                    @if($order->status_pembayaran == 'menunggu konfirmasi')
+                                        <form action="{{ route('admin.payments.confirm', $order->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-success">
-                                                <i class="bx bx-check me-1"></i> Konfirmasi
+                                                <i class="bx bx-check"></i> Konfirmasi
                                             </button>
                                         </form>
+                                    @elseif($order->status_pembayaran == 'lunas')
+                                        <small class="text-success">Diverifikasi</small>
                                     @else
-                                        <span class="text-muted small">-</span>
+                                        <small class="text-muted">-</small>
                                     @endif
                                 </td>
                             </tr>

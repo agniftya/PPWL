@@ -9,6 +9,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
+
+                {{-- --- TAMBAHKAN IKON KERANJANG DI SINI --- --}}
+                <li class="nav-item ms-lg-3">
+                    <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                        <i class="bx bx-cart fs-4"></i>
+                        @if(session('cart') && count(session('cart')) > 0)
+                            <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle"
+                                style="font-size: 0.6rem; padding: 0.35em 0.5em;">
+                                {{ count(session('cart')) }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
+                {{-- --------------------------------------- --}}
+
                 @auth
                     @if(Auth::user()->role === 'admin')
                         <li class="nav-item">
@@ -20,7 +35,7 @@
                 @endauth
             </ul>
 
-            <div class="ms-lg-3 d-flex gap-2">
+            <div class="ms-lg-3 d-flex gap-2 align-items-center">
                 @guest
                     <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a>
                     <a href="{{ route('register') }}" class="btn btn-primary">Register</a>

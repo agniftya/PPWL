@@ -81,7 +81,7 @@ berhasil diproses!');
 
     public function updatePaymentProof(Request $request, Order $order)
     {
-        if ($order->user_id !== Auth::id()) {
+        if ($order->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
             abort(403);
         }
 
@@ -106,5 +106,11 @@ berhasil diproses!');
         }
 
         return redirect()->route('orders.history')->with('success', 'Bukti pembayaran berhasil diupload.');
+    }
+
+    public function showPayment(Order $order)
+    {
+        // Admin bebas melihat bukti siapa saja
+        return view('admin.payments.show', compact('order'));
     }
 }

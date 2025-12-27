@@ -11,9 +11,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->unsignedBigInteger('user_id');
             $table->date("tanggal");
-            $table->decimal("total", 12, 2);
+            $table->decimal("total", 15, 2);
+            $table->string("alamat");
+            $table->string("telepon");
+            $table->string('metode');
             $table->string('bukti_pembayaran')->nullable();
             $table->enum('status_pembayaran', [
                 'pending',
@@ -21,14 +25,12 @@ return new class extends Migration {
                 'gagal',
                 'diproses'
             ])->default('pending');
+            $table->timestamps();
 
-            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('categories')
+                ->on('users')
                 ->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
     /** 

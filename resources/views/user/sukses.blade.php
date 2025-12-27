@@ -28,8 +28,8 @@
                 {{-- Form upload bukti pembayaran --}}
                 <div class="mt-4 text-start">
                     <h5>Upload Bukti Pembayaran:</h5>
-                    <form action="{{ route('checkout.updatePaymentProof', $order
-        > id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('checkout.updatePaymentProof', $order->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

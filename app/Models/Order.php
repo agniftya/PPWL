@@ -14,10 +14,10 @@ class Order extends Model
         'user_id',
         'tanggal',
         'total',
-        'status_pembayaran',
         'alamat',
         'telepon',
         'metode',
+        'status_pembayaran'
     ];
 
     public function user()

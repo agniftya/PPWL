@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    $products = Product::latest()->take(8)->get();
-    // Mengarah ke resources/views/user/home.blade.php
-    return view('user.home', compact('products'));
+    $categories = App\Models\Category::with('products')->get();
+    return view('user.home', compact('categories'));
 })->name('home');
 
 Route::get('/product/detail/{id}', function ($id) {

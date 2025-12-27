@@ -17,7 +17,6 @@ class Product extends Model
         "harga",
         "stok",
         "kategori_id",
-        "foto"
     ];
 
     // Relasi One-to-Many terbalik ke Category

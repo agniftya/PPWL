@@ -1,5 +1,4 @@
 <?php
-// app/Models/Category.php
 
 namespace App\Models;
 
@@ -11,7 +10,12 @@ class Category extends Model
     use HasFactory;
 
     protected $table = 'categories';
-    protected $fillable = [
-        "nama",
-    ];
+    protected $fillable = ["nama"];
+
+    // TAMBAHKAN INI: Agar Category bisa memanggil $category->products
+    public function products()
+    {
+        // Kita spesifikasikan 'kategori_id' sebagai foreign key-nya
+        return $this->hasMany(Product::class, 'kategori_id');
+    }
 }

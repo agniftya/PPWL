@@ -9,6 +9,16 @@
   @if(session('success')) 
     <div class="alert alert-success">{{ session('success') }}</div> 
   @endif 
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
  
   @if($cart && count($cart) > 0) 
     <div class="row"> 
@@ -52,8 +62,7 @@ $total; @endphp
           @csrf 
           <div class="mb-3"> 
             <label for="nama" class="form-label">Nama Lengkap</label> 
-            <input type="text" name="nama" id="nama" value="{{ old('nama', 
-$user->name ?? '') }}" class="form-control" disabled> 
+            <input type="text" name="nama" id="nama" value="{{ old('nama', Auth::user()->name) }}" class="form-control" readonly>
           </div> 
  
           <div class="mb-3"> 
@@ -75,7 +84,7 @@ disabled>
             <input type="hidden" name="metode" value="transfer"> 
           </div> 
  
-          <button type="submit" class="btn btn-primary w-100 btn-lg">Proses 
+          <button type="submit" class="btn btn-primary">Proses 
 Pembayaran</button> 
         </form> 
       </div> 

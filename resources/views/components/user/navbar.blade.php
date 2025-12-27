@@ -9,7 +9,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
-
                 @auth
                     @if(Auth::user()->role === 'admin')
                         <li class="nav-item">

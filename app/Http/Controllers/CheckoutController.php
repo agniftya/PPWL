@@ -35,8 +35,7 @@ masih kosong.');
         $total = collect($cart)->sum(fn($item) => $item['harga'] *
             $item['quantity']);
 
-        $orderId = 'ORD-' . time() . '-' . rand(1000, 9999);
-
+        $orderId = time() + rand(1000, 9999);
         $order = Order::create([
             'id' => $orderId,
             'user_id' => Auth::id(),
@@ -91,12 +90,9 @@ berhasil diproses!');
         ]);
 
         if ($request->hasFile('bukti_pembayaran')) {
-            if (
-                $order->bukti_pembayaran && Storage::disk('public')
-                > exists('payment/' . $order->bukti_pembayaran)
-            ) {
-                Storage::disk('public')->delete('payment/' . $order
-                    > bukti_pembayaran);
+            // Hapus file lama jika ada
+            if ($order->bukti_pembayaran && Storage::disk('public')->exists('payment/' . $order->bukti_pembayaran)) {
+                Storage::disk('public')->delete('payment/' . $order->bukti_pembayaran);
             }
 
             $file = $request->file('bukti_pembayaran');
@@ -104,10 +100,11 @@ berhasil diproses!');
             $file->storeAs('payment', $filename, 'public');
 
             $order->bukti_pembayaran = $filename;
-            $order->status_pembayaran = 'lunas';
+
+            $order->status_pembayaran = 'menunggu konfirmasi';
             $order->save();
         }
-        return redirect()->route('orders.history')->with('success', 'Bukti 
-pembayaran berhasil diupload.');
+
+        return redirect()->route('orders.history')->with('success', 'Bukti pembayaran berhasil diupload.');
     }
 }

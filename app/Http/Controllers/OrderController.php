@@ -51,4 +51,13 @@ class OrderController extends Controller
 
         return response()->file($path); // Menampilkan gambar langsung di browser
     }
+
+    public function adminOrders()
+    {
+        // Mengambil semua order beserta data user-nya
+        $orders = \App\Models\Order::with('user')->latest()->get();
+
+        // Mengirim variabel $orders ke view admin
+        return view('admin.orders.index', compact('orders'));
+    }
 }

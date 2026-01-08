@@ -64,15 +64,15 @@
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">TRANSAKSI</span>
-        </li>
+    <span class="menu-header-text">TRANSAKSI</span>
+</li>
 
-        <li class="menu-item {{ request()->routeIs('orders.history') ? 'active' : '' }}">
-            <a href="{{ route('orders.history') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-ul"></i>
-                <div data-i18n="Daftar Pesanan">Daftar Pesanan</div>
-            </a>
-        </li>
+<li class="menu-item {{ request()->routeIs('admin.orders.index') ? 'active' : '' }}">
+    <a href="{{ route('admin.orders.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-list-ul"></i>
+        <div data-i18n="Daftar Pesanan">Manajemen Pesanan</div>
+    </a>
+</li>
 
         <li class="menu-item {{ request()->is('admin/payments*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

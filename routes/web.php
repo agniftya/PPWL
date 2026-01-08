@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/payments/{order}/show', [OrderController::class, 'showPayment'])->name('admin.payments.show');
 
         Route::post('/admin/payments/{id}/confirm', [OrderController::class, 'confirmPayment'])->name('admin.payments.confirm');
+        Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders.index');
     });
 
 });

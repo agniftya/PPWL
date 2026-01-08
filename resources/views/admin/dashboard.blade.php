@@ -15,8 +15,8 @@
                                 <p class="mb-4">
                                     Selamat bekerja, pantau terus statistik penjualan dan data pengguna TokoKu hari ini.
                                 </p>
-                                <a href="{{ route('products.index') }}" class="btn btn-sm btn-outline-primary">Kelola
-                                    Produk</a>
+                                <a href="{{ route('products.index') }}" class="btn btn-sm btn-outline-primary">Lihat
+                                    Data</a>
                             </div>
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">
